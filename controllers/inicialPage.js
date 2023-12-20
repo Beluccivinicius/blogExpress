@@ -9,18 +9,29 @@ const {
 const { Users, Posts, Messages } = require("../model/aplication");
 
 router.get("/", async (req, res) => {
-  const user = new Users();
   // const tchau = await Posts.create(createRandomPost());
-  const oi = await Posts.findAll();
+  const allPosts = await Posts.findAll();
   res
     .set({
       "Access-Control-Allow-Origin": "http://localhost:3000",
+      "Access-Control-Allow-Credentials": "true",
       //SÓ PARA SABER
-      // "Access-Control-Allow-Credentials": "true",
       // "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       // "Access-Control-Allow-Headers": "Origin, Content-Type, Accept",
     })
-    .send(oi);
+    .send(allPosts);
+});
+
+router.get("/user", async (req, res) => {
+  // const oneUser = await Users.create(createRandomUser());
+  console.log(await Users.findAll());
+  const user = await Users.findOne({ where: { cpf: "33438447304" } });
+
+  res.set({
+    "Access-Control-Allow-Origin": "http://localhost:3000",
+    "Access-Control-Allow-Credentials": "true",
+  });
+  res.send(user);
 });
 
 module.exports = router;
