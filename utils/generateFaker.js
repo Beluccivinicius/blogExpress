@@ -32,11 +32,12 @@ function createRandomPost() {
 
   return {
     id_post: faker.string.uuid(),
-    titlePost: faker.lorem.sentence(),
+    title_post: faker.lorem.sentence(),
     content: faker.lorem.sentences(),
     theme_one: theme1,
     theme_two: theme2,
     theme_three: theme3,
+    id_user: 6,
   };
 }
 
@@ -52,4 +53,18 @@ function createRandomUser() {
   };
 }
 
-module.exports = { createRandomUser, createRandomPost, createTheme };
+function createMessages() {
+  return {
+    comment: faker.lorem.sentences(),
+    author: "João Macedo",
+    likes: 6,
+    id_user: 6,
+    id_post: 1,
+  };
+}
+module.exports = {
+  createRandomUser,
+  createRandomPost,
+  createTheme,
+  createMessages,
+};

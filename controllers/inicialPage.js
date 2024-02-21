@@ -4,34 +4,57 @@ const {
   createRandomUser,
   createRandomPost,
   createTheme,
+  createMessages,
 } = require("../utils/generateFaker");
 
-const { Users, Posts, Messages } = require("../model/aplication");
+//MY USER
+// {"id":6,
+// "id_user":"c258d6f9-7fc2-463b-ba2d-0d0c936368c4",
+// "password":"75o4xcByGy5ZfbF"
+// ,"name":"Philip Kuphal"
+// ,"mail":"Sigmund6@gmail.com",
+// "cpf":"13442164559",
+// "nickname":"Mazie91",
+// "cell_phone":"247.232.0711",
+// "createdAt":"2024-02-21T21:36:36.000Z",
+// "updatedAt":"2024-02-21T21:36:36.000Z"}
+
+const { Users, Posts, Messages, Save } = require("../model/aplication");
 
 router.get("/", async (req, res) => {
-  // const tchau = await Posts.create(createRandomPost());
   const allPosts = await Posts.findAll();
-  res
-    .set({
-      "Access-Control-Allow-Origin": "http://localhost:3000",
-      "Access-Control-Allow-Credentials": "true",
-      //SÓ PARA SABER
-      // "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      // "Access-Control-Allow-Headers": "Origin, Content-Type, Accept",
-    })
-    .send(allPosts);
+  res.send(allPosts);
+});
+
+router.get("/save/:idPost", async (req, res) => {
+  const { idPost } = req.params;
+
+  //Dar um jeito de mandar o id_user na requisição
+  const idUser = 6;
+
+  const listSave = await Save.findOne({
+    where: { id_user: idUser, id_post: idPost },
+  });
+
+  listSave == null
+    ? await Save.create({
+        id_user: 6,
+        id_post: idPost,
+      })
+    : await listSave.destroy();
 });
 
 router.get("/user", async (req, res) => {
-  // const oneUser = await Users.create(createRandomUser());
-  console.log(await Users.findAll());
-  const user = await Users.findOne({ where: { cpf: "33438447304" } });
+  const user = await Users.findOne({ where: { id: 1 } });
 
-  res.set({
-    "Access-Control-Allow-Origin": "http://localhost:3000",
-    "Access-Control-Allow-Credentials": "true",
-  });
   res.send(user);
+});
+
+router.get("/messages/:id", async (req, res) => {
+  const { id } = req.params;
+  const messages = await Messages.findAll({ where: { id_post: id } });
+
+  res.send(messages);
 });
 
 module.exports = router;

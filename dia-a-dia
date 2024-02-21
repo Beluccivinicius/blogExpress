@@ -1,0 +1,74 @@
+Eu já tinha feito a estrutura visual das mensagens
+com as seguintes regras, o botão de mensagem iria bater na URL
+/menssages/:id. Abri apenas três mensagens por vez de acordo
+com a quantidade de curtida, os mais curtidos sempre sendo o primeiro
+da lista, se quiser abrir mais mensagens precisa clicar em 'mais+'
+
+sábado 06/01 o que eu fiz hj - hoje fiquei preso em alguns bugs, um
+deles foi colocar um addEventLitenner onClick direto no elemento
+parent para fazer o fatch dos comentarios, porem não chamava a função.
+Fui fazer o backand da aplicação e fiquei preso no Datatype.Number, esse
+tipo de info não é aceito pelo MariaDB apenas o Datatype.Integer, outro bug que
+estava tentando resolver era, e que vou deixar para amanhã, é o bug de "foreign key"
+esta dando erro de "Data truncated for column 'id_post' at row 1"
+
+domingo 07/01 o que fiz hoje - hoje apenas vi videos do curso do Treversy e vou anotar aqui
+algumas informações que eu acho importante para eu lembrar depois. 
+ 1- Da para colocar uma promise em uma variavel e depois usando o método Promise dessa forma
+
+ const firstData = algumaPromise
+ const secondData = algumaPromise
+
+ const results =  Promise.all([firstData, secondData])
+
+ results irá ser uma array dos resultados da Promise, podendo ser string, array, etc.
+
+ segunda 08/01 o que fiz hoje - Consegui resolver o bug de chave estrangeira no meu banco de 
+ dados, ele parou de setar para Null os valores desconhecidos e agora consigo colocar os 
+ identificadores, tive que mudar o tipo da informação pois não aceita string apenas number 
+ (estava usando UUID), esse bug foi mais fácil que o anterior mas me fez procrastinar por 
+ achar que era díficil, estou conseguindo fazer o fetch para minha aplicação e agora o desafio 
+ é criar o elemento de cometário na div certa (os comentários abrem na sua respectiva publicação)
+
+ terça 09/01 what I do today - today I will write in english because I want!!! today I changed
+ how the comments looks and started do a Implementation handling DOM inside the function in React,
+ I'm feeling it doesen't make sense because in react we aways use a components, but in my research
+ i didin't find how i can insert de comments in the especific place, if i click in the button the
+ divComment appear in every PrevContent, not in the unique PrevContent
+  Now i'm watching a class Traversy about class, speaking this way is it very weird? below i will
+  write about what a like more in this classroom
+
+  1- I know about that but i write about it again,  Abstraction - is the better way to hidden a
+information less important, you don't need to know behind the scenes what is happening in you car
+for example, Encapsulation - is hiding methods or attributes that cannot be accessed from outside,
+Inheritance the child class inheritance attributes and methods from the parent class and you can 
+add more functionalitys, Polymorphism - You can get methods from the parent class and use them
+how you want and change them.
+
+10/01- what I did - i'm writing this text 6 days later and of course I don't remember everything what I did this day, but i remember i had a trouble with do a fetch in my comments API and the button didin't works at all, this troube shot was resolved changing the function fetch place, before the problem inssue resolved I was calling the fetch API in the button component (children component) and now the function call in the prevContend (father component)
+
+15/01 - what I did - Yesterday only whatched i course of Treversy and now i learning about OOP and how can I use classes in the javascript and now I write what I learned:
+
+1- before 2022 in javascript was impossible to set a property or method and make them private, devs take a '_' in front of property indicates this shouldn't be changed or accessed from outside the class, for n reasons. example is:
+
+ class Bank {
+  this._amountBank = 0
+ }
+
+_amountBank is a property shouldn't be accessed or changed from outside the class, but now you can set this using the notation "#" and this property changed to private method if you try access this the javascript throw error
+
+2-you can set a method inside the class using only using a key and putting inside a function but it's better putt inside the prototype. the first code is the first way you can do:
+
+const Person{
+  walk: function {
+    console.log(walk)
+  }
+}
+
+if you console.log(Person) the type of walk is function and this method don't enter in the prototype, if you do like this way:
+
+Person.prototype.walk = function () {
+  console.log(walk)
+}
+
+the method enter in the prototype
