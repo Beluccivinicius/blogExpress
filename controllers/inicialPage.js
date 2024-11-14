@@ -6,6 +6,7 @@ const {
   createTheme,
   createMessages,
 } = require("../utils/generateFaker");
+const nodemailer = require("../utils/nodeMailer");
 
 //MY USER
 // {"id":6,
@@ -22,8 +23,10 @@ const {
 const { Users, Posts, Messages, Save } = require("../model/aplication");
 
 router.get("/", async (req, res) => {
-  const allPosts = await Posts.findAll();
-  res.send(allPosts);
+  // const allPosts = await Posts.findAll();
+  nodemailer();
+  // console.log(allPosts);
+  // Posts.create(createRandomPost());
 });
 
 router.get("/save/:idPost", async (req, res) => {
@@ -46,7 +49,7 @@ router.get("/save/:idPost", async (req, res) => {
 
 router.get("/user", async (req, res) => {
   const user = await Users.findOne({ where: { id: 1 } });
-
+  console.log("ou");
   res.send(user);
 });
 
@@ -55,6 +58,25 @@ router.get("/messages/:id", async (req, res) => {
   const messages = await Messages.findAll({ where: { id_post: id } });
 
   res.send(messages);
+});
+
+router.post("/sendMessages", async (req, res) => {
+  const { comment, id_user } = req.body;
+
+  const createComment = await Messages.create({
+    comment,
+    likes: 0,
+    id_user: 1,
+    id_post: 1,
+  });
+
+  const findCommet = await Messages.findAll({ where: { id_post: 1 } });
+
+  res.status(200);
+  res.send(createComment);
+
+  //objeto menssagens contem: comment, curtidas, autor, Posts tem
+  //varios comentários e usuarios tem varios comentarios
 });
 
 module.exports = router;

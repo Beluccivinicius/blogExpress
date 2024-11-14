@@ -1,18 +1,19 @@
 const { Sequelize, Op, Model, DataTypes } = require("sequelize");
 
-const sequelize = new Sequelize("mysql", "root", "Teco@1406", {
+const sequelize = new Sequelize("mysql", "root", "root@123", {
   host: "localhost",
   logging: false,
-  dialect: "mariadb",
+  dialect: "mysql",
 });
 
 const Users = sequelize.define("user", {
   id_user: DataTypes.UUID,
-  password: DataTypes.CHAR,
   name: DataTypes.TEXT,
   mail: DataTypes.TEXT,
   cpf: DataTypes.CHAR,
+  foto: { type: DataTypes.CHAR, defaultValue: "../public/defaultFoto" },
   nickname: { type: DataTypes.TEXT, defaultValue: this.name },
+  password: DataTypes.CHAR,
   cell_phone: DataTypes.CHAR,
 });
 
@@ -31,7 +32,6 @@ const Save = sequelize.define("save", {
 
 const Messages = sequelize.define("message", {
   comment: DataTypes.TEXT,
-  author: DataTypes.STRING,
   likes: DataTypes.INTEGER,
 });
 
