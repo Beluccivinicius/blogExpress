@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 const { Model } = require("sequelize");
+const RandomPass = require("./randomPass");
 require("dotenv").config();
 const { EMAIL_UTILIZADO, APP_SENHA_EMAIL } = process.env;
 
@@ -16,13 +17,14 @@ const transporter = nodemailer.createTransport({
 });
 
 async function main(email) {
+  let randomPass = RandomPass();
   // send mail with defined transport object
   const info = await transporter.sendMail({
     from: `"Maddison Foo Koch 👻" <${EMAIL_UTILIZADO}>`, // sender address
     to: email || "vinicius.belucci@outlook.com", // list of receivers
     subject: "Hello ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>", // html body
+    text: randomPass, // plain text body
+    html: `<b>${randomPass}</b>`, // html body
   });
 
   console.log("Message sent: %s", info.messageId);
