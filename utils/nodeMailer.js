@@ -16,13 +16,13 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-async function main(email) {
+async function main(nome, email) {
   let randomPass = RandomPass();
   // send mail with defined transport object
   const info = await transporter.sendMail({
     from: `"Maddison Foo Koch 👻" <${EMAIL_UTILIZADO}>`, // sender address
-    to: email || "vinicius.belucci@outlook.com", // list of receivers
-    subject: "Hello ✔", // Subject line
+    to: "vinicius.belucci@outlook.com", // list of receivers
+    subject: `Hello ${nome} ✔`, // Subject line
     text: randomPass, // plain text body
     html: `<b>${randomPass}</b>`, // html body
   });

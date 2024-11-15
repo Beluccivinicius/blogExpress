@@ -25,8 +25,7 @@ app.options("*", cors());
 app.use(cors(corsOptions));
 
 app.use(express.static("public", options));
-
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/", require("./controllers/inicialPage.js"));

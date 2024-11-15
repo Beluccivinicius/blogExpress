@@ -6,11 +6,18 @@ const {
   createTheme,
   createMessages,
 } = require("../utils/generateFaker");
+const nodemailer = require("../utils/nodeMailer");
+const { route } = require("./inicialPage");
 
-router.post("/", async (req, res) => {
-  const { nome, mail, cpf, foto, nickname, cellPhone, senha } = req.body;
+router.post("/email", async (req, res) => {
+  const { nome, email } = req.body;
+  nodemailer(nome, email);
+});
 
-  console.log(req.body);
+//Random Password
+router.get("/", async (req, res) => {
+  const { mail } = req.body;
+  nodemailer(mail);
 });
 
 module.exports = router;

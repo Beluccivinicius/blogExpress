@@ -6,7 +6,6 @@ const {
   createTheme,
   createMessages,
 } = require("../utils/generateFaker");
-const nodemailer = require("../utils/nodeMailer");
 
 //MY USER
 // {"id":6,
@@ -24,7 +23,6 @@ const { Users, Posts, Messages, Save } = require("../model/aplication");
 
 router.get("/", async (req, res) => {
   // const allPosts = await Posts.findAll();
-  nodemailer();
   // console.log(allPosts);
   // Posts.create(createRandomPost());
 });
